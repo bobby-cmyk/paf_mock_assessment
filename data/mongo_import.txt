@@ -1,1 +1,1 @@
-mongoimport -d paf_mock_assessment -c listings --type=json --jsonArray --file=formatted_listings.json
+mongoimport --uri=$MONGODBURI -d mybnb -c listings --type=json --file=listings.json
