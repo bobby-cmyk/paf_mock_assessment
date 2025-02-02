@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing</title>
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <p>
+        <a th:href="@{/search(
+            country=${searchForm.country},
+            numberOfPerson=${searchForm.numberOfPerson},
+            minPrice=${searchForm.minPrice},
+            maxPrice=${searchForm.maxPrice})}">Back</a>
+    </p>
+
+    <table data-th-object="${deets}" border="1">
+        <tr>
+            <td>
+                Id
+            </td>
+            <td>
+                <span data-th-text="*{id}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td class="description_image_container">
+                <span color="brown" data-th-text="*{description}"></span>
+                <img data-th-src="*{pictureUrl}" class="description_image">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                <p data-th-text="*{street}"></p>
+                <p data-th-text="*{suburb}"></p>
+                <p data-th-text="*{country}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Price
+            </td>
+            <td data-th-text="*{price}"></td>
+        </tr>
+        <tr>
+            <td>
+                Amenities
+            </td>
+            <td data-th-text="*{amenities}"></td>
+        </tr>
+    </table>
+
+    <h2>
+        Bookings
+    </h2>
+
+    <form method="POST" action="/book" data-th-object="${book}">
+        <table>
+            <input type="hidden" data-th-field="*{accId}" />
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    <input type="text" placeholder="Your name" data-th-field="*{name}">
+                </td>
+                <td>
+                    <span 
+                        data-th-if="${#fields.hasErrors('name')}"
+                        data-th-errors="*{name}"
+                        data-th-errorclass="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email:
+                </td>
+                <td>
+                    <input type="text" placeholder="Your email" data-th-field="*{email}">
+                </td>
+                <td>
+                    <span 
+                        data-th-if="${#fields.hasErrors('email')}"
+                        data-th-errors="*{email}"
+                        data-th-errorclass="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Arrival:
+                </td>
+                <td>
+                    <input type="date" data-th-field="*{arrivalDate}">
+                </td>
+                <td>
+                    <span 
+                        data-th-if="${#fields.hasErrors('arrivalDate')}"
+                        data-th-errors="*{arrivalDate}"
+                        data-th-errorclass="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Stay:
+                </td>
+                <td>
+                    <input type="text" data-th-field="*{duration}"> <span>days</span>
+                </td>
+                <td>
+                    <span 
+                        data-th-if="${#fields.hasErrors('duration')}"
+                        data-th-errors="*{duration}"
+                        data-th-errorclass="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Book</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div data-th-if="${errorMessage}">
+        <span data-th-text="${errorMessage}"></span>
+    </div>
+    
+</body>
+</html>

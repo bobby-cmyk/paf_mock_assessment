@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <h1>
+        Listings for <code data-th-text="${searchForm.country}"></code>
+    </h1>
+
+    <div>
+        <a href="/">Back</a>
+    </div>
+
+    <br>
+
+    <p data-th-if="${#lists.isEmpty(results)}">
+        No listings found for search criteria. 
+    </p>
+
+    <table data-th-unless="${#lists.isEmpty(results)}" border="1">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>   
+            <th>
+                Image
+            </th> 
+        </tr>
+        <tr data-th-each="result : ${results}">
+            <td>
+                <span data-th-text="*{result.address}"></span>
+            </td>
+            <td>
+                <span data-th-text="*{result.price}"></span>
+            </td>
+            <td>
+                <img data-th-src="*{result.imageUrl}" class="search_listing_image">
+            </td>
+            <td>
+                <a
+                   data-th-href="@{/listing/{id}(id=*{result.id}, 
+                              country=${searchForm.country}, 
+                              numberOfPerson=${searchForm.numberOfPerson}, 
+                              minPrice=${searchForm.minPrice}, 
+                              maxPrice=${searchForm.maxPrice})}">
+                  Details
+                </a>
+            </td>
+        </tr>
+
+    </table>
+</body>
+</html>

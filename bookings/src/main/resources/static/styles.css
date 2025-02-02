@@ -1,0 +1,12 @@
+.search_listing_image {
+    max-width: 300px;
+}
+
+.description_image_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.description_image {
+    max-width: 250px;
+}
